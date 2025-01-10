@@ -1,0 +1,49 @@
+SCAN 
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main() {
+    int t[20], d[20], atr[20], n, h, i, j, temp, k, p = 0, sum = 0;
+    printf("Enter the number of tracks to be traversed: ");
+    scanf("%d", &n);
+    printf("Enter the position of the head: ");
+    scanf("%d", &h);
+    t[0] = h; // Include head position in the tracks
+    printf("Enter the tracks: \n");
+    for (i = 1; i <= n; i++) {
+        scanf("%d", &t[i]);
+    }
+
+    for (i = 0; i <= n; i++) {
+        for (j = 0; j < n - i; j++) {
+            if (t[j] > t[j + 1]) {
+                temp = t[j];
+                t[j] = t[j + 1];
+                t[j + 1] = temp;
+            }
+        }
+    }
+
+    for (i = 0; i <= n; i++) {
+        if (t[i] == h) {
+            k = i;
+            break;
+        }
+    }
+
+    for (j = k; j >= 0; j--) {
+        atr[p++] = t[j];
+    }
+    for (j = k + 1; j <= n; j++) {
+        atr[p++] = t[j];
+    }
+
+    for (j = 0; j < p - 1; j++) {
+        d[j] = abs(atr[j + 1] - atr[j]);
+        sum += d[j];
+    }
+
+    printf("\nAverage header movement: %.2f\n", (float)sum / n);
+    return 0;
+}
